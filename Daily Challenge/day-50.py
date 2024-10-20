@@ -43,57 +43,28 @@
 e = "&(|(f))"
 
 def xyz(expression):
-    def parse(expr):
-        if expr == 't':
-            return True
-        if expr == 'f':
-            return False
-        if expr[0] == '!':
-            return parse_not(expr)
-        if expr[0] == '&':
-            return parse_and(expr)
-        if expr[0] == '|':
-            return parse_or(expr)
+    stack = []
         
-    # Helper to parse OR expressions
-    def parse_or(expr):
-        # Strip the | and parentheses, then split by comma
-        sub_exprs = split_expression(expr[2:-1])
-        # Evaluate each subexpression, return True if any is True
-        return any(parse(sub) for sub in sub_exprs)
-        
-    # Helper to parse AND expressions
-    def parse_and(expr):
-        # Strip the & and parentheses, then split by comma
-        sub_exprs = split_expression(expr[2:-1])
-        # Evaluate each subexpression, return False if any is False
-        return all(parse(sub) for sub in sub_exprs)
-        
-    # Helper to parse NOT expressions
-    def parse_not(expr):
-        # Strip the ! and parentheses, then evaluate the inner expression
-        return not parse(expr[2:-1])
-        
-    # Utility function to split expressions at the top level
-    # We need this to handle splitting sub-expressions at commas outside parentheses
-    def split_expression(expr):
-        sub_exprs = []
-        balance = 0
-        current_expr = []
-        for char in expr:
-            if char == '(':
-                balance += 1
-            elif char == ')':
-                balance -= 1
-            if char == ',' and balance == 0:
-                sub_exprs.append(''.join(current_expr))
-                current_expr = []
-            else:
-                current_expr.append(char)
-        sub_exprs.append(''.join(current_expr))  # Add the last expression
-        return sub_exprs
+    for ch in expression:
+        if ch == ')':
+            sub_expr = []
+            while stack and stack[-1] != '(':
+                sub_expr.append(stack.pop())
+            stack.pop()
 
-    # Start parsing the full expression
-    return parse(expression)
+            operator = stack.pop()
+
+            if operator == '&':
+                result = all(x == 't' for x in sub_expr)
+            elif operator == '|':
+                result = any(x == 't' for x in sub_expr)
+            elif operator == '!':
+                result = sub_expr[0] == 'f'
+
+            stack.append('t' if result else 'f')
+        elif ch != ',':
+            stack.append(ch)
+        
+    return stack[-1] == 't'
 
 print(xyz(e))
