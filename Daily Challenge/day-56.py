@@ -51,53 +51,35 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
-
 class Solution:
-    def treeQueries(self, root: Optional[TreeNode], queries: List[int]) -> List[int]:
-        h = {}
-        d = {}
-        
-        def dfs(node, depth):
+    def treeQueries(
+        self, root: Optional[TreeNode], queries: List[int]) -> List[int]:
+        result = {}
+        height = {}
+
+        def _height(node):
             if not node:
                 return -1
-            d[node.val] = depth
-            left_height = dfs(node.left, depth + 1)
-            right_height = dfs(node.right, depth + 1)
-            h[node.val] = max(left_height, right_height) + 1
-            return h[node.val]
-        
-        dfs(root, 0)
-        
-        max_depth_height_1 = {}
-        max_depth_height_2 = {}
-        
-        for node_val, height in h.items():
-            depth = d[node_val]
-            if depth not in max_depth_height_1:
-                max_depth_height_1[depth] = -1
-            if depth not in max_depth_height_2:
-                max_depth_height_2[depth] = -1
-            
-            if height > max_depth_height_1[depth]:
-                max_depth_height_2[depth] = max_depth_height_1[depth]
-                max_depth_height_1[depth] = height
-            elif height > max_depth_height_2[depth]:
-                max_depth_height_2[depth] = height
 
-        result = []
+            if node in height:
+                return height[node]
 
-        for q in queries:
-            node_depth = d[q]
-            node_height = h[q]
-            
-            if node_height == max_depth_height_1[node_depth]:
-                new_tree_height = node_depth + max_depth_height_2[node_depth]
-            else:
-                new_tree_height = node_depth + max_depth_height_1[node_depth]
-            
-            result.append(new_tree_height)
-        
-        return result
+            h = 1 + max(_height(node.left), _height(node.right))
+            height[node] = h
+            return h
+
+        def _dfs(node, depth, max_val):
+            if not node:
+                return
+
+            result[node.val] = max_val
+
+            _dfs( node.left, depth + 1, max(max_val, depth + 1 + _height(node.right)) )
+            _dfs( node.right, depth + 1, max(max_val, depth + 1 + _height(node.left)) )
+
+        _dfs(root, 0, 0)
+
+        return [result[q] for q in queries]
 
 root = TreeNode(1)
 root.left = TreeNode(3)
