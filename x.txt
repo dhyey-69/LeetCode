@@ -1,0 +1,24 @@
+
+
+
+
+
+                                            Aim 69: Hacking into E² & MARS Using Mai API  
+
+                                                    P1: G26 + W  
+                                                        2H_D + 6H_W → LA + P + ML + DL  
+                                                        PYQ + MT → Rev + Fix  
+
+                                                    P2: MT @ X  
+                                                        G60+ → I1/I2/I3 → AI/ML  
+                                                        DL + RL + OP → Proj + R  
+
+                                                    P3: INT + RES  
+                                                        T/N/G/L → Apply  
+                                                        R_P + OS → Build  
+
+                                                    P4: T/S Entry  
+                                                        I_PREP + A(TS) → OFFER → JOIN  
+
+                                                    Y9: TS AI Eng  
+                                                        return SUCCESS;  
