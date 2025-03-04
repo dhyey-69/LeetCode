@@ -34,12 +34,19 @@ num = 91
 # num = 21
 
 def xyz(n):
-    check = True
+    # check = True
 
-    while (n > 0):
-        n, rem = divmod(n, 3)
-        if rem == 2:
-            check = False
-    return check
+    # while (n > 0):
+    #     n, rem = divmod(n, 3)
+    #     if rem == 2:
+    #         check = False
+    # return check
+
+    while n > 0:
+        if n % 3 == 2:
+            return False
+        n //= 3
+    
+    return True
         
 print(xyz(num))
