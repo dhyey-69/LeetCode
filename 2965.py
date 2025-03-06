@@ -52,4 +52,21 @@ def xyz(grid):
     
     return duplicate_missing
 
+    #Optimal Solution
+
+    # n = len(grid)
+    # seen = set()
+    # duplicate = -1
+    
+    # for row in grid:
+    #     for num in row:
+    #         if num in seen:
+    #             duplicate = num
+    #         seen.add(num)
+    
+    # expected_numbers = set(range(1, n * n + 1))
+    # missing = (expected_numbers - seen).pop()
+    
+    # return [duplicate, missing]
+
 print(xyz(g))
