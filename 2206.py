@@ -38,9 +38,26 @@ n = [3,2,3,2,2,2]
 # n = [1,2,3,4]
 
 def xyz(nums):
+    
+    # My Solution Correct but not optimal 
     for i in range(1,500):
         if nums.count(i) % 2 != 0:
             return False        
     return True
+
+    # Optimal Solution using Dictonary 
+    # freq = {}
+    
+    # for num in nums:
+    #     if num in freq:
+    #         freq[num] += 1
+    #     else:
+    #         freq[num] = 1
+        
+    # for count in freq.values():
+    #     if count % 2 != 0:
+    #         return False
+        
+    # return True
 
 print(xyz(n))
