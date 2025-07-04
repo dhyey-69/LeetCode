@@ -61,6 +61,10 @@ op = [0,0,0]
 # op = [0,1,0,1]
 
 def xyz(k,operations):
-    return chr(97+((k-1) & sum(operations[b]<<b for b in range((k-1).bit_length()))).bit_count()%26)
+    # return chr(97+((k-1) & sum(operations[b]<<b for b in range((k-1).bit_length()))).bit_count()%26)
+
+    bitmask = sum(operations[b] << b for b in range((k - 1).bit_length()))
+    shifts = ((k - 1) & bitmask).bit_count()
+    return chr(97 + shifts % 26)
 
 print(xyz(k,op))
