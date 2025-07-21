@@ -36,7 +36,7 @@
 # s consists only of lowercase English letters.
 
 s1 = "leeetcode"
-# s1 = "aaabaaaa"
+s1 = "aaabaaaa"
 # s1 = "aab"
 
 def xyz(s):
