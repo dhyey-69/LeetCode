@@ -56,6 +56,33 @@ p = [12,16,19,19,8,1,19,13,9]
 k = 3
 
 def xyz(prices,k):
-    print()
+    NEG = -10**30
+        
+    flat = [NEG] * (k + 1)
+    long = [NEG] * (k + 1)
+    short = [NEG] * (k + 1)
+    
+    flat[0] = 0
+    
+    for price in prices:
+        new_flat = flat[:]
+        new_long = long[:]
+        new_short = short[:]
+        
+        for t in range(k + 1):
+            new_long[t] = max(new_long[t], flat[t] - price)
+            new_short[t] = max(new_short[t], flat[t] + price)
+            
+            if t < k:
+                new_flat[t + 1] = max(
+                    new_flat[t + 1],
+                    long[t] + price,
+                    short[t] - price
+                )
+        
+        flat, long, short = new_flat, new_long, new_short
+    
+    return max(flat)
+
 
 print(xyz(p,k))
